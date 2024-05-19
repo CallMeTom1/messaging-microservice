@@ -1,0 +1,76 @@
+
+syntax = "proto3";
+
+package security;
+
+message CredentialI {
+    string credential_id = 1;
+    string username = 2;
+    string password = 3;
+    string mail = 4;
+    string google_hash = 5;
+    string facebook_hash = 6;
+    bool is_admin = 7;
+    bool active = 8;
+    string created = 9;
+    string updated = 10;
+}
+
+message TokenI {
+    string token_id = 1;
+    string token = 2;
+    string refresh_token = 3;
+    CredentialI credential = 4;
+}
+
+message Empty {};
+
+message DetailRequest{
+    string id = 1;
+}
+
+
+
+message SignInRequest {
+    string username = 1;
+    string password = 2;
+    string google_hash = 3;
+    string facebook_hash = 4;
+    bool social_login = 5;
+}
+
+
+
+message SignUpRequest{
+    string username = 1;
+    string password = 2;
+    string mail = 3;
+    string google_hash = 4;
+    string facebook_hash = 5;
+}
+
+
+
+
+message RefreshTokenRequest {
+    string refresh = 1;
+}
+
+
+message DeleteRequest {
+    string id = 1;
+}
+
+
+service SecurityService {
+    rpc SignIn(SignInRequest) returns (TokenI) {}
+    rpc SignUp(SignUpRequest) returns (TokenI) {}
+    rpc RefreshToken(RefreshTokenRequest) returns (TokenI) {}
+    rpc Delete(DeleteRequest) returns (Empty) {}
+}
+
+
+
+
+
+
